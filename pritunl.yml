@@ -1,0 +1,8 @@
+---
+
+- name: Pritunl Installation
+  hosts: label_service_name_pritunl
+  gather_facts: yes
+  become: True
+  roles:
+    - ../roles/pritunl

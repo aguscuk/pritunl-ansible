@@ -1,0 +1,25 @@
+---
+plugin: gcp_compute
+projects:
+  - sre-lab01
+regions:
+  - asia-southeast2
+filters: []
+
+auth_kind: serviceaccount
+service_account_file: ../sre-lab01-d6e35a955bf9.json
+keyed_groups:
+  - key: labels
+    prefix: label
+  - key: zone
+    prefix: zone
+groups:
+  development: "'dev' in (labels|list)"
+  production: "'prod' in (labels|list)"
+hostnames:
+  - name
+compose:
+  # Set an inventory parameter to use the Public IP address to connect to the host
+  # For Private ip use "networkInterfaces[0].networkIP"
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+

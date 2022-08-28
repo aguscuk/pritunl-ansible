@@ -1,0 +1,70 @@
+---
+
+- name: Add an Apt signing key mongodb
+  ansible.builtin.apt_key:
+    url: https://www.mongodb.org/static/pgp/server-5.0.asc
+
+
+- name: Add an apt key by id from a keyserver
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+
+
+- name: Add mongodb repository
+  ansible.builtin.apt_repository:
+    repo: deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse
+    state: present
+    filename: /etc/apt/sources.list.d/mongodb-org-5.0.list
+
+- name: Install dependency mongodb in ubuntu 22.04
+  apt:
+    deb: http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+    
+
+- name: Add pritunl repository
+  ansible.builtin.apt_repository:
+    repo: deb http://repo.pritunl.com/stable/apt jammy main
+    state: present
+    filename: /etc/apt/sources.list.d/pritunl.list
+
+
+- name: Update all packages to their latest version
+  ansible.builtin.apt:
+    name: "*"
+    state: latest
+
+- name: Upgrade the OS (apt-get dist-upgrade)
+  ansible.builtin.apt:
+    upgrade: dist
+
+
+- name: Install dependencies and pre-requisite pritunl
+  apt:
+    update_cache: yes
+    name:
+      - dirmngr
+      - gnupg
+      - apt-transport-https
+      - ca-certificates
+      - software-properties-common
+      - pritunl
+      - mongodb-org
+    state: present
+
+- name: Remove useless packages from the cache
+  ansible.builtin.apt:
+    autoclean: yes
+
+- name: Remove dependencies that are no longer required
+  ansible.builtin.apt:
+    autoremove: yes
+
+
+- name: Start Pritunl Services
+  systemd:
+    name: "{{ item }}"
+    state: started
+  with_items:
+    - pritunl
+    - mongod
