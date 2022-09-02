@@ -4,6 +4,7 @@
 *.bkp
 *.retry
 *.*~
+.venv
 
 # Try tyo avoid any plain-text passwords 
 *pwd*
