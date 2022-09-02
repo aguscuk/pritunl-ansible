@@ -5,5 +5,5 @@
   gather_facts: yes
   become: True
   roles:
-    - ../roles/pritunl
-    - ../roles/configs
+    - {role: '../roles/pritunl', tags: 'pritunl'}
+    - {role: '../roles/configs', tags: 'configs'}
