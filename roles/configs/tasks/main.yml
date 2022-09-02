@@ -1,0 +1,15 @@
+---
+- name: get setup key
+  shell: pritunl setup-key
+  register: setup
+
+- debug:
+    msg: "SETUP KEY: {{ setup.stdout_lines }} "
+
+
+- name: get default password
+  shell: pritunl default-password
+  register: password
+
+- debug:
+    msg: "DEFAULT PASSWORD: {{ password.stdout_lines }} "
