@@ -18,8 +18,8 @@ ansible-inventory -i inventories/dev/ --graph
 cd playbooks/
 
 # dry-run
-ANSIBLE_CONFIG=../ansible.cfg ansible-playbook pritun_playbookl.yml -i ../inventories/dev/ --extra-vars ansible_user=$USER -C
+ANSIBLE_CONFIG=../ansible.cfg ansible-playbook pritun_playbook.yml -i ../inventories/dev/ --extra-vars ansible_user=$USER -C
 
 # run
-ANSIBLE_CONFIG=../ansible.cfg ansible-playbook pritun_playbookl.yml -i ../inventories/dev/ --extra-vars ansible_user=$USER
+ANSIBLE_CONFIG=../ansible.cfg ansible-playbook pritun_playbook.yml -i ../inventories/dev/ --extra-vars ansible_user=$USER
 ```
