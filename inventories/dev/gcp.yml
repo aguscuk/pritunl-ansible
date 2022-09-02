@@ -7,7 +7,7 @@ regions:
 filters: []
 
 auth_kind: serviceaccount
-service_account_file: ../sre-lab01-d6e35a955bf9.json
+service_account_file: ../../sre-lab01-d6e35a955bf9.json
 keyed_groups:
   - key: labels
     prefix: label
